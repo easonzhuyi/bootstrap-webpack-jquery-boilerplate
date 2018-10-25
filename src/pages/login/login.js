@@ -1,9 +1,9 @@
 import 'bootstrap';
 
-import './scss/index.scss';
+import '~/scss/index/index.scss';
 
 $('#alert').click(() => {
-  alert('jQuery works!');
+  alert('login');
 });
 
 // Your jQuery code

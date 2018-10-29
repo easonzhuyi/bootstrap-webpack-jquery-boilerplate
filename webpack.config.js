@@ -6,6 +6,9 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const multipageHelper = require('./multipage-helper.js');
+// const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const autoprefixer = require('autoprefixer');
 
 const IS_DEV = process.env.NODE_ENV === 'dev';
 
@@ -21,10 +24,23 @@ const config = {
     extensions: ['.js', '.vue', '.json'],
     alias: {
       '~': path.resolve(__dirname, './src'),
+      '@': path.resolve(__dirname, './src'),
     },
   },
   module: {
     rules: [
+      // {
+      //   test: /\.vue$/,
+      //   use: [
+      //     'vue-loader',
+      //     {
+      //       loader: 'postcss-loader',
+      //       options: {
+      //         plugins: [autoprefixer],
+      //       },
+      //     },
+      //   ],
+      // },
       {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -50,7 +66,46 @@ const config = {
             ]
           : ExtractTextPlugin.extract({
               fallback: 'style-loader',
-              use: ['css-loader', 'sass-loader'],
+              use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+            }),
+      },
+      {
+        test: /\.less$/,
+        use: IS_DEV
+          ? [
+              'style-loader',
+              {
+                loader: 'css-loader',
+                options: {
+                  sourceMap: true,
+                },
+              },
+              {
+                loader: 'less-loader',
+                options: {
+                  sourceMap: true,
+                },
+              },
+              {
+                loader: 'postcss-loader',
+                options: {
+                  plugins: [autoprefixer],
+                },
+              },
+            ]
+          : ExtractTextPlugin.extract({
+              fallback: 'style-loader',
+              use: [
+                MiniCssExtractPlugin.loader,
+                'css-loader',
+                'less-loader',
+                {
+                  loader: 'postcss-loader',
+                  options: {
+                    plugins: [autoprefixer],
+                  },
+                },
+              ],
             }),
       },
       {
@@ -85,6 +140,16 @@ const config = {
               minimize: true,
             },
           },
+          // {
+          //   loader: 'vue-template-loader',
+          //   options: {
+          //     transformAssetUrls: {
+          //       // The key should be an element name
+          //       // The value should be an attribute name or an array of attribute names
+          //       img: 'src',
+          //     },
+          //   },
+          // },
         ],
       },
     ],
@@ -104,6 +169,7 @@ const config = {
     ]),
     new ExtractTextPlugin('styles.css'),
     new webpack.HashedModuleIdsPlugin(),
+    // new VueLoaderPlugin(),
   ],
   optimization: {
     runtimeChunk: {
@@ -157,5 +223,16 @@ multipageHelper.getModuleList().forEach(element => {
     )
   );
 });
+
+// const vuxLoader = require('vux-loader');
+//
+// module.exports = vuxLoader.merge(config, {
+//   options: {},
+//   plugins: [
+//     {
+//       name: 'vux-ui',
+//     },
+//   ],
+// });
 
 module.exports = config;

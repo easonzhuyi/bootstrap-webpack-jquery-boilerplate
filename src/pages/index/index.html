@@ -11,6 +11,21 @@
   <link rel="stylesheet" href="./public/static/css/app.css">
   <script src="https://cdn.jsdelivr.net/npm/vue"></script>
   <script src="https://unpkg.com/vuex@3.0.1/dist/vuex.min.js"></script>
+  <script type="text/javascript">
+    // 计算root fontsize
+    window.__setFontSize__ = (function (doc, win) {
+      var docEl = doc.documentElement,
+        // resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+        recalc = function () {
+          document.documentElement.style.fontSize = Math.min(640, Math.max(document.documentElement.clientWidth, 320)) / 375 * 14 + 'px'
+        };
+      if (!doc.addEventListener) return;
+      doc.addEventListener('DOMContentLoaded', recalc, false);
+      win.addEventListener('resize', recalc, false);
+      return recalc;
+    })(document, window);
+  </script>
+
 </head>
 
 <body>

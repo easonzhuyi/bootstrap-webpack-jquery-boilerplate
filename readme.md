@@ -16,16 +16,16 @@ React is awesome, and I use it everyday.
 
 However, not each project needs such a complicated library. jQuery and bootstrap are good enough.
 
+even, the solution features search engine optimization (SEO) for product.
+
 Hence, this repo is suitable for simple projects.
 
 ## About DOM manipulation, all you need is...
 
 #### 🤩 jQuery
+#### 🤩 Vue (not a esmodule)
 
 #### ❌ No React
-
-#### ❌ No Vue
-
 #### ❌ No Angular
 
 ## About CSS, all you need is...
@@ -49,7 +49,7 @@ Hence, this repo is suitable for simple projects.
 Let's go!
 
 ```
-$ git clone https://github.com/xxhomey19/bootstrap-webpack-jquery-boilerplate.git
+$ git clone https://github.com/easonzhu/bootstrap-webpack-jquery-boilerplate.git
 $ cd bootstrap-webpack-jquery-boilerplate
 $ yarn // or npm install
 ```
@@ -70,16 +70,5 @@ Build for production.
 $ npm run build
 ```
 
-## Deploy
-
-Deploy to `gh-pages` branch on GitHub.
-
-**[DEMO](https://xxhomey19.github.io/bootstrap-webpack-jquery-boilerplate/)**
-
-```
-$ npm run deploy
-```
-
 ## License
 
-MIT © [xxhomey19](https://github.com/xxhomey19)
